@@ -14,6 +14,5 @@ public interface Interface_global {
 	public static ArrayList<ArrayList<String>> part_joueur = new ArrayList<ArrayList<String>>();
 	public static ArrayList<InetAddress> adresse_joueur = new ArrayList<InetAddress>();
 	public static ArrayList<String> reponse_trois_joueurs = new ArrayList<String>();
-	public static ArrayList<String> Res = new ArrayList<String>();
-	public static ArrayList<String> reste = new ArrayList<String>();
+
 }

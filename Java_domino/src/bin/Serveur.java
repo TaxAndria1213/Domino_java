@@ -7,19 +7,22 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import Interface.Interface_global;
 
 
 public class Serveur {
-	public static int port = 9634;
-	private int nbJoueur = 3;
+	public static int port = 9634; //varavarana ho an'ny joueurs
+	private int nbJoueur = 3; //définition statique an'ny nombre de joueur
 	private BufferedReader in = null;
 	private PrintStream out = null;
-	private String messageRecu = "";
 	private String tour = "tour";
 	private int tour_de = 0;
+	public static ArrayList<String> Res = new ArrayList<String>(); //array liste misy ny nombre disponible eny amn table
+
+	private ArrayList<String> res1 = new ArrayList<String>();
+	private ArrayList<String> res2 = new ArrayList<String>();
+	
 	
 	public Serveur() {
 		try {
@@ -27,15 +30,31 @@ public class Serveur {
 			Domino d = new Domino();
 			ServerSocket socketServer = new ServerSocket(port);
 			int compteur = 0;
+			/*
+			 * raha mbola latsaky ny 3 ny joueurs de miandry fona le serveur
+			 * 
+			 * */
 			while(compteur < nbJoueur) {
 				Socket joueur = socketServer.accept();
 				Interface_global.socket_liste.add(joueur);
 				interractionAvecSocket(joueur);
+				/*
+				 * ito no mizara anle domy fito
+				 * */
 				ArrayList<String> part = d.zarainaNyVato();
+				
+				/*
+				 * ao anaty Interface_global no misy anle vaton'ny joueur
+				 * 
+				 * */
 				Interface_global.part_joueur.add(part);
 				compteur++;
 			}
 			
+			/*
+			 * eto no zarainy makany amin'ny joueur tsirairay ny anjara vatony
+			 * 
+			 * */
 			compteur = 0;
 			while(compteur < nbJoueur) {
 				PrintStream out = Interface_global.liste_outs.get(compteur);
@@ -48,16 +67,33 @@ public class Serveur {
 			String rep1;
 			String rep2;
 			String rep3;
+			
 			/*
-	rep1 = Interface_global.reponse_trois_joueurs.get(0);
-			rep2 = Interface_global.reponse_trois_joueurs.get(1);
-			rep3 = Interface_global.reponse_trois_joueurs.get(2);
-*/
+			 * manomboka milalao amzay ny joueurs
+			 * 
+			 * */
 			while(true){
+				/*
+				 * mandefa anle message "c'est ton tour" any amin'ny joueur[compteur]
+				 * 
+				 * */
 				out = Interface_global.liste_outs.get(tour_de);
 				out.println("C'est ton "+tour);
 				out.flush();
+				
+				/*
+				 * eto ndray no mandray ny domy nalefan'ny joueur ilay serveur
+				 * 
+				 * */
 				in = Interface_global.liste_ins.get(tour_de);
+				
+				/*
+				 * Refa avy mamaly daoly le joueur 3 de ataony amzay ny instruction eto
+				 * ito hamantarana we tapitra ny lalao rah ohatra ka "tsisy" daholo ny valin'ny an'ny joueur.
+				 * de io reponse_trois_joueurs io ny tableau misy ny valiny nalefan'izy telo niaraka
+				 * alaina any anatin'io tableau io zany ilay valiny na samy tsia daholo na mbola misy manana vato
+				 * 
+				 * */
 				if(Interface_global.reponse_trois_joueurs.size() == 3) {
 					rep1 = Interface_global.reponse_trois_joueurs.get(0);
 					rep2 = Interface_global.reponse_trois_joueurs.get(1);
@@ -65,26 +101,68 @@ public class Serveur {
 					if(rep1.equals("tsisy") && rep2.equals("tsisy") && rep3.equals("tsisy")) {
 						break;
 					}
+					/*
+					 * de ito ra ohatra ka tsy mitovy daoly le reponse de fafany ndray le ao anaty tableau
+					 * */
 					Interface_global.reponse_trois_joueurs.clear();
 				}
+				
+				/*
+				 * maka valiny any amin'ny joueur
+				 * */
 				reponse_joueur = in.readLine();
+				ajouterDansRes(reponse_joueur);
 				Interface_global.reponse_trois_joueurs.add(reponse_joueur);
 				System.out.println("Réponse joueur "+Interface_global.socket_liste.get(tour_de).getRemoteSocketAddress()+" : "+reponse_joueur);
 				System.out.println(Interface_global.reponse_trois_joueurs);
+				//System.out.println("Dans Res : "+Res);
 				
-				
-				PrintStream affichage_reste = null;
-				for(int x = 0; x < nbJoueur; x++) {
-					affichage_reste = Interface_global.liste_outs.get(x);
-					affichage_reste.println(nombreLibre(reponse_joueur));
-					affichage_reste.flush();
+				/*
+				 * eto indray ny manao ny mampiseho anle domy afaka alefa
+				 * rah ohatra ka 3-5 5-6 de "3-6" no avoakany
+				 * */
+				if(Res.size() > 1 && !reponse_joueur.equals("tsisy")) {
+					String[] resultat1;
+					String[] resultat2;
+					//System.out.println("Dans res : plus de 2");
+					resultat1 = Res.get(0).split("-");
+					resultat2 = Res.get(1).split("-");
+					
+					for(int i=0 ; i < 2; i++) {
+						res1.add(resultat1[i]);
+						res2.add(resultat2[i]);
+					}
+					//System.out.println(res1 +"  /  "+res2);
+					for(int x = 0; x < res1.size(); x++) {
+						for(int y = 0; y < res2.size(); y++) {
+							if(res1.get(x).equals(res2.get(y))) {
+								res1.remove(x);
+								res2.remove(y);
+							}
+						}
+					}
+					System.out.println("Résultat sur table : "+res1 +"  /  "+res2);
+					Res.clear();
+					Res.add(res1.get(0)+"-"+res2.get(0));
+					res1.clear();
+					res2.clear();
 				}
-				
+				System.out.println("Reste sur table est : "+Res);
+
+				/*
+				 * ito no manova ny tour.
+				 * */
 				tour_de++;
+				
+				/*
+				 * rah ohatra ka tonga amin'ny tour'ny fahatelo de miverina zero ny tour.
+				 * 
+				 * */
 				if(tour_de == 3) {
 					tour_de = 0;
 				}
 				
+
 			}
 			
 			
@@ -92,6 +170,7 @@ public class Serveur {
 			System.out.println(Interface_global.liste_domino);
 			System.out.println(Interface_global.adresse_joueur);
 			
+			/* refa vita ny lalao de idina eto ny socket client sy socketServeur */
 			for(int i = 0; i < Interface_global.socket_liste.size(); i++) {
 				Interface_global.socket_liste.get(i).close();
 			}
@@ -101,6 +180,12 @@ public class Serveur {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/*
+	 * ito no manampy joueur any anaty tableau sy ilay BufferReader ary ilay PrintStream
+	 * 
+	 * */
 	
 	public void interractionAvecSocket(Socket joueur) {
 		try {
@@ -116,36 +201,9 @@ public class Serveur {
 		}
 	}
 	
-	public String nombreLibre(String reponse) {
-		String resultat = "pas de resultat";
-		if( Interface_global.Res.size() <= 1) {
-			Interface_global.Res.add(reponse);
-		}else {
-			for(int i = 0; i < Interface_global.Res.size(); i++) {
-				String rep1 = Interface_global.Res.get(i);
-				String rep[] = rep1.split("-");
-				for(int j = 0; j < rep.length; j++) {
-					Interface_global.reste.add(rep[j]);
-				}
-			}
-			
-			String nb = null, compare = null, resultat_final = "";
-			
-			for(int x = 0; x < Interface_global.reste.size(); x++) {
-				nb = Interface_global.reste.get(x);
-				for(int y = x+1; y < Interface_global.reste.size(); y++) {
-					if(nb.equals(Interface_global.reste.get(y))) {
-						Interface_global.reste.remove(y);
-					}
-				}
-			}
-			
-			Interface_global.Res.clear();
-			Interface_global.Res.add(Interface_global.reste.get(0)+"-"+Interface_global.reste.get(1));
-			resultat = Interface_global.reste.get(0)+"-"+Interface_global.reste.get(1);
-		}
-		
-		return resultat;
-
+	
+	public void ajouterDansRes(String reponse) {
+	if(!reponse.equals("tsisy"))
+		Res.add(reponse);
 	}
 }
