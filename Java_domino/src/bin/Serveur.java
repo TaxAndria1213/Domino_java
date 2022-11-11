@@ -78,7 +78,7 @@ public class Serveur {
 				 * 
 				 * */
 				out = Interface_global.liste_outs.get(tour_de);
-				out.println("C'est ton "+tour);
+				out.println("C'est ton "+tour+" tes pieces disponibles : "+Interface_global.part_joueur.get(tour_de));
 				out.flush();
 				
 				/*
@@ -112,7 +112,10 @@ public class Serveur {
 				 * */
 				reponse_joueur = in.readLine();
 				ajouterDansRes(reponse_joueur);
+				partActuelleJoueur(tour_de, reponse_joueur);
 				Interface_global.reponse_trois_joueurs.add(reponse_joueur);
+				
+				
 				System.out.println("Réponse joueur "+Interface_global.socket_liste.get(tour_de).getRemoteSocketAddress()+" : "+reponse_joueur);
 				System.out.println(Interface_global.reponse_trois_joueurs);
 				//System.out.println("Dans Res : "+Res);
@@ -162,6 +165,7 @@ public class Serveur {
 					tour_de = 0;
 				}
 				
+				
 
 			}
 			
@@ -205,5 +209,16 @@ public class Serveur {
 	public void ajouterDansRes(String reponse) {
 	if(!reponse.equals("tsisy"))
 		Res.add(reponse);
+	}
+	
+	public void partActuelleJoueur(int index, String reponse) {
+		ArrayList<String> part = Interface_global.part_joueur.get(index);
+		if(!reponse.equals("tsisy")) {
+			for(int i = 0; i < part.size(); i++) {
+				if(part.get(i).equals(reponse)) {
+					part.remove(i);
+				}
+			}
+		}
 	}
 }
