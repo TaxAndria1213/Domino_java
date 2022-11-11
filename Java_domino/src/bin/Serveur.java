@@ -13,107 +13,139 @@ import Interface.Interface_global;
 
 
 public class Serveur {
-	final static int port = 9634;
-	private Socket socket = null;
-	Scanner sc = new Scanner(System.in);
-	static ServerSocket socketServeur = null;
-	private int nombreJoueur = 1;
-	
-	
-	public Serveur(Socket client) {
-		socket = client;
-	}
+	public static int port = 9634;
+	private int nbJoueur = 3;
+	private BufferedReader in = null;
+	private PrintStream out = null;
+	private String messageRecu = "";
+	private String tour = "tour";
+	private int tour_de = 0;
 	
 	public Serveur() {
-		String recu = "";
 		try {
+			System.out.println("Démarrage du serveur...");
 			Domino d = new Domino();
-			int nbConnecte = 0;
-			int nbJoueurMin = this.nombreJoueur;
-			socketServeur = new ServerSocket(port);
-			System.out.println("Lancement du serveur");
-			while(nbConnecte < 2) {
-				Socket socketClient = socketServeur.accept();
-				Interface_global.socket_liste.add(socketClient);
-				nbConnecte++;
+			ServerSocket socketServer = new ServerSocket(port);
+			int compteur = 0;
+			while(compteur < nbJoueur) {
+				Socket joueur = socketServer.accept();
+				Interface_global.socket_liste.add(joueur);
+				interractionAvecSocket(joueur);
 				ArrayList<String> part = d.zarainaNyVato();
 				Interface_global.part_joueur.add(part);
-				//System.out.println(part);
-				//System.out.println(Interface_global.liste_domino);
+				compteur++;
 			}
 			
-			int compteur = 0;
-			while(compteur < Interface_global.socket_liste.size()) {
-				Serveur s = new Serveur(Interface_global.socket_liste.get(compteur));
-				s.traitement(Interface_global.part_joueur.get(compteur));
+			compteur = 0;
+			while(compteur < nbJoueur) {
+				PrintStream out = Interface_global.liste_outs.get(compteur);
+				ArrayList<String> part = Interface_global.part_joueur.get(compteur);
+				out.println(part);
 				compteur++;
+			}
+			
+			String reponse_joueur = "";
+			String rep1;
+			String rep2;
+			String rep3;
+			/*
+	rep1 = Interface_global.reponse_trois_joueurs.get(0);
+			rep2 = Interface_global.reponse_trois_joueurs.get(1);
+			rep3 = Interface_global.reponse_trois_joueurs.get(2);
+*/
+			while(true){
+				out = Interface_global.liste_outs.get(tour_de);
+				out.println("C'est ton "+tour);
+				out.flush();
+				in = Interface_global.liste_ins.get(tour_de);
+				if(Interface_global.reponse_trois_joueurs.size() == 3) {
+					rep1 = Interface_global.reponse_trois_joueurs.get(0);
+					rep2 = Interface_global.reponse_trois_joueurs.get(1);
+					rep3 = Interface_global.reponse_trois_joueurs.get(2);
+					if(rep1.equals("tsisy") && rep2.equals("tsisy") && rep3.equals("tsisy")) {
+						break;
+					}
+					Interface_global.reponse_trois_joueurs.clear();
+				}
+				reponse_joueur = in.readLine();
+				Interface_global.reponse_trois_joueurs.add(reponse_joueur);
+				System.out.println("Réponse joueur "+Interface_global.socket_liste.get(tour_de).getRemoteSocketAddress()+" : "+reponse_joueur);
+				System.out.println(Interface_global.reponse_trois_joueurs);
+				
+				
+				PrintStream affichage_reste = null;
+				for(int x = 0; x < nbJoueur; x++) {
+					affichage_reste = Interface_global.liste_outs.get(x);
+					affichage_reste.println(nombreLibre(reponse_joueur));
+					affichage_reste.flush();
+				}
+				
+				tour_de++;
+				if(tour_de == 3) {
+					tour_de = 0;
+				}
 				
 			}
+			
 			
 			System.out.println(Interface_global.part_joueur);
 			System.out.println(Interface_global.liste_domino);
 			System.out.println(Interface_global.adresse_joueur);
 			
-			
+			for(int i = 0; i < Interface_global.socket_liste.size(); i++) {
+				Interface_global.socket_liste.get(i).close();
+			}
+			socketServer.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void interractionAvecSocket(Socket joueur) {
+		try {
+			System.out.println("Connexion avec : "+joueur.getRemoteSocketAddress());
+			in = new BufferedReader(new InputStreamReader(joueur.getInputStream()));
+			out = new PrintStream(joueur.getOutputStream());
+			Interface_global.liste_ins.add(in);
+			Interface_global.liste_outs.add(out);
 			
 		} catch (IOException e) {
-			// TODO: handle exception
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public void traitement(ArrayList<String> array) {
-		String envoi = "";
-		ArrayList<String> message = array;
-		try {
-			System.out.println("Connexion avec le client : "+socket.getInetAddress());
-			//envoi = sc.nextLine();
-			
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintStream out = new PrintStream(socket.getOutputStream());
-			Interface_global.adresse_joueur.add(socket.getInetAddress());
-			
-			
-			
-			//System.out.println("Envoi du message");
-			//out.println(envoi);
-			//out.flush();
-			
-			//envoi = in.readLine();
-			//System.out.println(envoi);
-			
-			//do {
-				//envoi = in.readLine();
-				//System.out.println(envoi);
-				
-				//envoi = sc.nextLine();
-				out.println(message);
-				out.flush();
-			//}while(!envoi.equals("exit"));
-			//socketServeur.close();
-			//socket.close();
-				
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void setNbJoueur(int nb) {
-		this.nombreJoueur = nb;
-	}
-	
-	/*
-		public void attenteReponse() {
-		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+	public String nombreLibre(String reponse) {
+		String resultat = "pas de resultat";
+		if( Interface_global.Res.size() <= 1) {
+			Interface_global.Res.add(reponse);
+		}else {
+			for(int i = 0; i < Interface_global.Res.size(); i++) {
+				String rep1 = Interface_global.Res.get(i);
+				String rep[] = rep1.split("-");
+				for(int j = 0; j < rep.length; j++) {
+					Interface_global.reste.add(rep[j]);
+				}
+			}
+			
+			String nb = null, compare = null, resultat_final = "";
+			
+			for(int x = 0; x < Interface_global.reste.size(); x++) {
+				nb = Interface_global.reste.get(x);
+				for(int y = x+1; y < Interface_global.reste.size(); y++) {
+					if(nb.equals(Interface_global.reste.get(y))) {
+						Interface_global.reste.remove(y);
+					}
+				}
+			}
+			
+			Interface_global.Res.clear();
+			Interface_global.Res.add(Interface_global.reste.get(0)+"-"+Interface_global.reste.get(1));
+			resultat = Interface_global.reste.get(0)+"-"+Interface_global.reste.get(1);
 		}
+		
+		return resultat;
+
 	}
-*/
-	
 }
