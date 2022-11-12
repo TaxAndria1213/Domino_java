@@ -211,14 +211,27 @@ public class Serveur {
 		Res.add(reponse);
 	}
 	
+	
+	/*
+	 * part anle joueur après ny tour-ny.
+	 * 
+	 * */
 	public void partActuelleJoueur(int index, String reponse) {
 		ArrayList<String> part = Interface_global.part_joueur.get(index);
 		if(!reponse.equals("tsisy")) {
 			for(int i = 0; i < part.size(); i++) {
-				if(part.get(i).equals(reponse)) {
+				String reponse_inverse = "";
+				for(int compte_inverse = reponse.length()-1; compte_inverse >= 0; compte_inverse--) {
+					reponse_inverse += reponse.charAt(compte_inverse);
+				}
+				if(part.get(i).equals(reponse) || part.get(i).equals(reponse_inverse)) {
 					part.remove(i);
 				}
 			}
 		}
+	}
+	
+	public void calculGain() {
+		
 	}
 }
