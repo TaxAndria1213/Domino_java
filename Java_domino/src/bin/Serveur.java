@@ -111,6 +111,18 @@ public class Serveur {
 				 * maka valiny any amin'ny joueur
 				 * */
 				reponse_joueur = in.readLine();
+				verifierReponse(reponse_joueur);
+				System.out.println("Réponse avec tsisy : "+Interface_global.liste_reponse);
+				
+				/*
+				 * condition raha telo no nanao tsisy
+				 * 
+				 * */
+				if(Interface_global.liste_reponse.size() == 3) {
+					break;
+				}
+				
+				
 				ajouterDansRes(reponse_joueur);
 				partActuelleJoueur(tour_de, reponse_joueur);
 				Interface_global.reponse_trois_joueurs.add(reponse_joueur);
@@ -164,18 +176,43 @@ public class Serveur {
 				if(tour_de == 3) {
 					tour_de = 0;
 				}
-				
-				
-
 			}
+			
+			
 			
 			
 			System.out.println(Interface_global.part_joueur);
 			System.out.println(Interface_global.liste_domino);
 			System.out.println(Interface_global.adresse_joueur);
 			
+			
+			calculSommePartFinale();
+			
+			System.out.println(Interface_global.somme_part);
+			
+			int gagnant = chercherGangant();
+			for(int i = 0; i < nbJoueur; i++) {
+				if(i == gagnant) {
+					Interface_global.liste_outs.get(i).println("Vous êtes le gagnant ! bravo");
+					Interface_global.liste_outs.get(i).flush();
+				}
+				else {
+					Interface_global.liste_outs.get(i).println("le joueur "+(gagnant+1)+" a gangé la partie");
+				}
+			}
+			
+			int gainFinal =0;
+			for(int i = 0; i < nbJoueur; i++) {
+				if(i != gagnant) {
+					gainFinal += Interface_global.somme_part.get(i);
+				}
+				
+			}
+			
+			
 			/* refa vita ny lalao de idina eto ny socket client sy socketServeur */
 			for(int i = 0; i < Interface_global.socket_liste.size(); i++) {
+				Interface_global.liste_outs.get(i).println("Gain du gagnant : "+gainFinal);
 				Interface_global.socket_liste.get(i).close();
 			}
 			socketServer.close();
@@ -231,7 +268,57 @@ public class Serveur {
 		}
 	}
 	
+	public void verifierReponse(String reponse) {
+		if(reponse.equals("tsisy")) {
+			Interface_global.liste_reponse.add(reponse);
+		}
+		else {
+			Interface_global.liste_reponse.clear();
+		}
+	}
+	
+	public int chercherGangant() {
+		int compteur = 0;
+		int min, compare;
+		
+		compare = Interface_global.somme_part.get(compteur);
+		min = compteur;
+		
+		for(int i = 1; i < Interface_global.somme_part.size(); i++) {
+			if(compare > Interface_global.somme_part.get(i)) {
+				compare = Interface_global.somme_part.get(i);
+				min = i;
+			}
+		}
+		
+		return min;
+	}
+	
 	public void calculGain() {
 		
+	}
+	
+	public void calculSommePartFinale() {
+		for(int i = 0; i < nbJoueur; i++) {
+			ArrayList<String> stockResteJoueur = Interface_global.part_joueur.get(i);
+			ArrayList<Integer> listeEntierDesRestes = new ArrayList<Integer>();
+			
+			for(int j = 0; j < stockResteJoueur.size(); j++) {
+				String[] rest = stockResteJoueur.get(j).split("-");
+				for(int x = 0; x < rest.length; x++) {
+					listeEntierDesRestes.add(Integer.parseInt(rest[x]));
+				}
+			}
+			
+			Interface_global.somme_part.add(calculSommeDansArrayList(listeEntierDesRestes));
+		}
+	}
+	
+	public int calculSommeDansArrayList(ArrayList<Integer> list) {
+		int somme = 0;
+		for(int i = 0; i < list.size(); i++) {
+			somme += list.get(i);
+		}
+		return somme;
 	}
 }
