@@ -50,14 +50,8 @@ public class Serveur {
 				
 			}
 			
-			System.out.println("Interface_global.part_joueur " + Interface_global.part_joueur);
-			System.out.println("Interface_global.liste_domino " + Interface_global.liste_domino);
-			System.out.println("Interface_global.adresse_joueur " + Interface_global.adresse_joueur);
-			
-			
 			
 		} catch (IOException e) {
-			// TODO: handle exception
 			throw new RuntimeException(e);
 		}
 	}
@@ -67,7 +61,6 @@ public class Serveur {
 		ArrayList<String> message = array;
 		try {
 			System.out.println("Connexion avec le client : "+socket.getRemoteSocketAddress());
-			//envoi = sc.nextLine();
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintStream out = new PrintStream(socket.getOutputStream());
