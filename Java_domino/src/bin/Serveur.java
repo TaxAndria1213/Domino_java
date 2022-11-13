@@ -50,9 +50,9 @@ public class Serveur {
 				
 			}
 			
-			System.out.println(Interface_global.part_joueur);
-			System.out.println(Interface_global.liste_domino);
-			System.out.println(Interface_global.adresse_joueur);
+			System.out.println("Interface_global.part_joueur " + Interface_global.part_joueur);
+			System.out.println("Interface_global.liste_domino " + Interface_global.liste_domino);
+			System.out.println("Interface_global.adresse_joueur " + Interface_global.adresse_joueur);
 			
 			
 			
@@ -66,7 +66,7 @@ public class Serveur {
 		String envoi = "";
 		ArrayList<String> message = array;
 		try {
-			System.out.println("Connexion avec le client : "+socket.getInetAddress());
+			System.out.println("Connexion avec le client : "+socket.getRemoteSocketAddress());
 			//envoi = sc.nextLine();
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
