@@ -146,7 +146,7 @@ public class Serveur {
 					for(int i=0 ; i < 2; i++) {
 						res1.add(resultat1[i]);
 						res2.add(resultat2[i]);
-					}
+					}	
 					
 					
 					//System.out.println(res1 +"  /  "+res2);
@@ -201,6 +201,7 @@ public class Serveur {
 				else {
 					Interface_global.liste_outs.get(i).println("le joueur "+(gagnant+1)+" a gangé la partie");
 				}
+				
 			}
 			
 			int gainFinal =0;
@@ -215,6 +216,12 @@ public class Serveur {
 			/* refa vita ny lalao de idina eto ny socket client sy socketServeur */
 			for(int i = 0; i < Interface_global.socket_liste.size(); i++) {
 				Interface_global.liste_outs.get(i).println("Gain du gagnant : "+gainFinal);
+				Interface_global.liste_outs.get(i).flush();
+
+				String fin = "fin";
+				Interface_global.liste_outs.get(i).println(fin);
+				Interface_global.liste_outs.get(i).flush();
+				
 				Interface_global.socket_liste.get(i).close();
 			}
 			socketServer.close();
