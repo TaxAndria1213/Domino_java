@@ -147,6 +147,8 @@ public class Serveur {
 						res1.add(resultat1[i]);
 						res2.add(resultat2[i]);
 					}
+					
+					
 					//System.out.println(res1 +"  /  "+res2);
 					for(int x = 0; x < res1.size(); x++) {
 						for(int y = 0; y < res2.size(); y++) {
