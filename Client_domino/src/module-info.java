@@ -6,4 +6,5 @@
  *
  */
 module Client_domino {
+	requires java.desktop;
 }
