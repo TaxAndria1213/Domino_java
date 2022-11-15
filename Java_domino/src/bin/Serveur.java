@@ -12,7 +12,7 @@ import Interface.Interface_global;
 
 
 public class Serveur {
-	public static int port = 9635; //varavarana ho an'ny joueurs
+	public static int port = 9634; //varavarana ho an'ny joueurs
 	private int nbJoueur = 3; //définition statique an'ny nombre de joueur
 	private BufferedReader in = null;
 	private PrintStream out = null;
@@ -74,6 +74,31 @@ public class Serveur {
 				ArrayList<String> part = Interface_global.part_joueur.get(compteur);
 				out.println(part);
 				compteur++;
+			}
+			
+			for (int index = 0; index < Interface_global.socket_liste.size(); index ++ )
+			{
+				System.out.println(Interface_global.part_joueur.get(index));
+				for(int i = 0 ; i < Interface_global.part_joueur.get(index).size(); i++)
+				{
+					if(Interface_global.part_joueur.get(index).get(i).equals("6-6") 
+							|| Interface_global.part_joueur.get(index).get(i).equals("5-5") 
+							|| Interface_global.part_joueur.get(index).get(i).equals("4-4") 
+							|| Interface_global.part_joueur.get(index).get(i).equals("3-3") 
+							|| Interface_global.part_joueur.get(index).get(i).equals("2-2") 
+							|| Interface_global.part_joueur.get(index).get(i).equals("1-1") 
+							|| Interface_global.part_joueur.get(index).get(i).equals("0-0"))
+					{
+						tour_de = index;
+						System.out.println("tompotour " + index);
+						System.out.println("double existant " + Interface_global.part_joueur.get(index).get(i));
+						break;
+					}
+					else 
+					{
+						tour_de = 0;
+					}
+				}
 			}
 			
 			String reponse_joueur = "";
