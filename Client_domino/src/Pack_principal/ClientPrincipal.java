@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Interface.Interface;
+import Vue.FenetreDeJeu;
 
 public class ClientPrincipal {
-	final static int port = 9634;
+	final static int port = 9635;
 	
-	public static void main(String[] args) {
+	public ClientPrincipal() {
 		String envoi = "";
 
 		try {
@@ -28,47 +29,51 @@ public class ClientPrincipal {
 			Scanner entree = new Scanner(System.in);
 			String message = "";
 			System.out.println("Reception de message...");
-			//message = entree.nextLine();
+			
 			message = in.readLine();
-			System.out.println(message);
-			
-			
-			/*
-			 * antsoina le méthode mi-créer anle domino ato amin'ny client
-			 * 
-			 * */
-			creerListeDomino(message);
-			
-			
-			System.out.println("Ma part de Domino : "+Interface.partJoueur);
-			
-			/*
-			 * boucler les réponses
-			 * 
-			 * */
-			
-			//System.out.println("Envoi du message.");
-			while(true) {
-				message = in.readLine();
+			if(message.equals("Démarrer")) {
+				FenetreDeJeu fenetre_jeux = new FenetreDeJeu();
 				
+				message = in.readLine();
 				System.out.println(message);
 				
-				if(message.equals("fin")) {
-					break;
-				}
 				
-				envoi = entree.nextLine();
-				out.println(envoi);
-				out.flush();
 				/*
-				 * fafana ao amin'ny ArrayList partJoueur ilay pièce avy nariany.
+				 * antsoina le méthode mi-créer anle domino ato amin'ny client
+				 * 
 				 * */
-				partActuelleJoueur(envoi);
+				creerListeDomino(message);
 				
-				System.out.println("le reste de ma part : "+Interface.partJoueur);
 				
+				System.out.println("Ma part de Domino : "+Interface.partJoueur);
+				
+				/*
+				 * boucler les réponses
+				 * 
+				 * */
+				
+				while(true) {
+					message = in.readLine();
+					
+					System.out.println(message);
+					
+					if(message.equals("fin")) {
+						break;
+					}
+					
+					envoi = entree.nextLine();
+					out.println(envoi);
+					out.flush();
+					/*
+					 * fafana ao amin'ny ArrayList partJoueur ilay pièce avy nariany.
+					 * */
+					partActuelleJoueur(envoi);
+					
+					System.out.println("le reste de ma part : "+Interface.partJoueur);
+					
+				}
+				socket.close();
 			}
-			socket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

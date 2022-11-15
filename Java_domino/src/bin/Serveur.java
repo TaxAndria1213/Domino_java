@@ -12,7 +12,7 @@ import Interface.Interface_global;
 
 
 public class Serveur {
-	public static int port = 9634; //varavarana ho an'ny joueurs
+	public static int port = 9635; //varavarana ho an'ny joueurs
 	private int nbJoueur = 3; //définition statique an'ny nombre de joueur
 	private BufferedReader in = null;
 	private PrintStream out = null;
@@ -50,6 +50,19 @@ public class Serveur {
 				Interface_global.part_joueur.add(part);
 				compteur++;
 			}
+			
+			/*
+			 * mi-déclencher ny fenêtre an'ny joueur ny serveur
+			 * 
+			 * */
+			
+			
+			int pointeur = 0;
+			while(pointeur < nbJoueur) {
+				declencherFenetreJeu(Interface_global.liste_outs.get(pointeur));
+				pointeur++;
+			}
+			
 			
 			/*
 			 * eto no zarainy makany amin'ny joueur tsirairay ny anjara vatony
@@ -175,7 +188,7 @@ public class Serveur {
 				 * rah ohatra ka tonga amin'ny tour'ny fahatelo de miverina zero ny tour.
 				 * 
 				 * */
-				if(tour_de == 3) {
+				if(tour_de == nbJoueur) {
 					tour_de = 0;
 				}
 			}
@@ -329,5 +342,13 @@ public class Serveur {
 			somme += list.get(i);
 		}
 		return somme;
+	}
+	
+	/*
+	 * fonction mi-déclenche ny fenêtre de jeu
+	 * */
+	public void declencherFenetreJeu(PrintStream out) {
+		out.println("Démarrer");
+		out.flush();
 	}
 }
