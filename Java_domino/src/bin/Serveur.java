@@ -78,25 +78,66 @@ public class Serveur {
 			
 			for (int index = 0; index < Interface_global.socket_liste.size(); index ++ )
 			{
-				System.out.println(Interface_global.part_joueur.get(index));
 				for(int i = 0 ; i < Interface_global.part_joueur.get(index).size(); i++)
 				{
-					if(Interface_global.part_joueur.get(index).get(i).equals("6-6") 
-							|| Interface_global.part_joueur.get(index).get(i).equals("5-5") 
-							|| Interface_global.part_joueur.get(index).get(i).equals("4-4") 
-							|| Interface_global.part_joueur.get(index).get(i).equals("3-3") 
-							|| Interface_global.part_joueur.get(index).get(i).equals("2-2") 
-							|| Interface_global.part_joueur.get(index).get(i).equals("1-1") 
-							|| Interface_global.part_joueur.get(index).get(i).equals("0-0"))
+					if(Interface_global.part_joueur.get(index).get(i).equals("6-6"))
 					{
 						tour_de = index;
-						System.out.println("tompotour " + index);
-						System.out.println("double existant " + Interface_global.part_joueur.get(index).get(i));
 						break;
 					}
 					else 
 					{
-						tour_de = 0;
+						if(Interface_global.part_joueur.get(index).get(i).equals("5-5"))
+						{
+							tour_de = index;
+							break;
+						}
+						else 
+						{
+							if(Interface_global.part_joueur.get(index).get(i).equals("4-4"))
+							{
+								tour_de = index;
+								break;
+							}
+							else 
+							{
+								if (Interface_global.part_joueur.get(index).get(i).equals("3-3"))
+								{
+									tour_de = index;
+									break;
+								}
+								else 
+								{
+									if(Interface_global.part_joueur.get(index).get(i).equals("2-2"))
+									{
+										tour_de = index;
+										break;
+									}
+									else 
+									{
+										if(Interface_global.part_joueur.get(index).get(i).equals("1-1"))
+										{
+											tour_de = index;
+											break;
+										}
+										else 
+										{
+											if(Interface_global.part_joueur.get(index).get(i).equals("0-0"))
+											{
+												tour_de = index;
+												break;
+											}
+											else 
+											{
+												tour_de = 0;	
+											}
+										}
+									}
+									
+								}
+								
+							}
+						}
 					}
 				}
 			}
