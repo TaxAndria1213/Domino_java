@@ -26,7 +26,8 @@ public class FenetreAccueil {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				ClientPrincipal client = new ClientPrincipal();
+				new ClientPrincipal(new FenetreDeJeu());
+				fenetre_principal.dispose();
 			}
 		});
 		

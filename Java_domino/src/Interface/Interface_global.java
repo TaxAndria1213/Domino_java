@@ -16,5 +16,6 @@ public interface Interface_global {
 	public static ArrayList<String> reponse_trois_joueurs = new ArrayList<String>();
 	public static ArrayList<String> liste_reponse = new ArrayList<String>();
 	public static ArrayList<Integer> somme_part = new ArrayList<Integer>();
+	public static ArrayList<String> domino_sur_table = new ArrayList<String>();
 
 }

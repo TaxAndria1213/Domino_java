@@ -13,7 +13,7 @@ import Interface.Interface_global;
 
 public class Serveur {
 	public static int port = 9635; //varavarana ho an'ny joueurs
-	private int nbJoueur = 3; //définition statique an'ny nombre de joueur
+	private int nbJoueur = 1; //définition statique an'ny nombre de joueur
 	private BufferedReader in = null;
 	private PrintStream out = null;
 	private String tour = "tour";
@@ -86,6 +86,7 @@ public class Serveur {
 			 * 
 			 * */
 			while(true){
+				
 				/*
 				 * mandefa anle message "c'est ton tour" any amin'ny joueur[compteur]
 				 * 
@@ -125,19 +126,40 @@ public class Serveur {
 				 * */
 				reponse_joueur = in.readLine();
 				verifierReponse(reponse_joueur);
+				ajouterDominoSurTable(reponse_joueur);
+				
+				
+				/*
+				 * alefa any amin'ilay joueur le domy tokony ho eo ambony latabatra
+				 * */
+				
+				for(int x = 0; x < nbJoueur; x++) {
+					Interface_global.liste_outs.get(x).println(reponse_joueur);
+					Interface_global.liste_outs.get(x).flush();
+				}
+				
 				System.out.println("Réponse avec tsisy : "+Interface_global.liste_reponse);
 				
 				/*
 				 * condition raha telo no nanao tsisy
 				 * 
 				 * */
-				if(Interface_global.liste_reponse.size() == 3) {
+				if(Interface_global.liste_reponse.size() == nbJoueur) {
 					break;
 				}
 				
 				
 				ajouterDansRes(reponse_joueur);
 				partActuelleJoueur(tour_de, reponse_joueur);
+				
+				boolean part_vide = verifierPartJoueurSiVide(tour_de);
+				
+				if(part_vide == false) {
+					System.out.println("La partie est terminée");
+					break;
+					
+				}
+				
 				Interface_global.reponse_trois_joueurs.add(reponse_joueur);
 				
 				
@@ -285,6 +307,7 @@ public class Serveur {
 				}
 				if(part.get(i).equals(reponse) || part.get(i).equals(reponse_inverse)) {
 					part.remove(i);
+					System.out.println("Part du joueur : "+Interface_global.part_joueur);
 				}
 			}
 		}
@@ -345,10 +368,36 @@ public class Serveur {
 	}
 	
 	/*
-	 * fonction mi-déclenche ny fenêtre de jeu
+	 * fonction mi-déclenche ny fenêtre de jeu any amin'ny joueur.
 	 * */
 	public void declencherFenetreJeu(PrintStream out) {
 		out.println("Démarrer");
 		out.flush();
+	}
+	
+	/*
+	 * Mandefa ny domy eo ambony latabatra. mila enregistrena any anaty lisy ilay domy
+	 * 
+	 * */
+	
+	public void ajouterDominoSurTable(String reponse) {
+		Interface_global.domino_sur_table.add(reponse);
+		System.out.println("Domino sur table : "+Interface_global.domino_sur_table);
+	}
+	
+	/*
+	 * Ito ny code mivérifier rah ohatra ka efa tsy manana domy tsony le joueur refa avy mandefa.
+	 * */
+	
+	public boolean verifierPartJoueurSiVide(int tour_de) {
+		boolean continuer = true;
+		ArrayList<String> part_du_joueur = Interface_global.part_joueur.get(tour_de);
+		if(part_du_joueur.size() == 0) {
+			continuer = false;
+			return continuer;
+		}
+		else {
+			return continuer;
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package Pack_principal;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -8,72 +9,57 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
 import Interface.Interface;
+import Modele.Domino;
 import Vue.FenetreDeJeu;
 
-public class ClientPrincipal {
+public  class ClientPrincipal {
 	final static int port = 9635;
+	public static Socket socket;
+	public static BufferedReader input;
+	public static PrintStream output;
 	
-	public ClientPrincipal() {
+	public ClientPrincipal(FenetreDeJeu fen) {
 		String envoi = "";
-
+		
 		try {
-			InetAddress serveur = null;
-			Socket socket = null;
 			
-			serveur = InetAddress.getByName("192.168.151.246");
-			socket = new Socket(serveur, port);
+			if(Interface.partJoueur.size() == 0) {
+				InetAddress serveur = null;
+				Socket socket = null;
+				
+				serveur = InetAddress.getByName("127.0.0.1");
+				socket = new Socket(serveur, port);
+				ClientPrincipal.socket = socket;
+				
+				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				ClientPrincipal.input = in;
+				PrintStream out = new PrintStream(socket.getOutputStream());
+				ClientPrincipal.output = out;
+			}
 			
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintStream out = new PrintStream(socket.getOutputStream());
 			Scanner entree = new Scanner(System.in);
 			String message = "";
 			System.out.println("Reception de message...");
 			
-			message = in.readLine();
+			message = ClientPrincipal.input.readLine();
 			if(message.equals("Démarrer")) {
-				FenetreDeJeu fenetre_jeux = new FenetreDeJeu();
 				
-				message = in.readLine();
+				message = ClientPrincipal.input.readLine();
+				creerListeDomino(message);
+				poserLesImagesDomino(fen);
+				System.out.println(Interface.partJoueur);
+				
+				message = ClientPrincipal.input.readLine();
 				System.out.println(message);
 				
 				
-				/*
-				 * antsoina le méthode mi-créer anle domino ato amin'ny client
-				 * 
-				 * */
-				creerListeDomino(message);
-				
-				
-				System.out.println("Ma part de Domino : "+Interface.partJoueur);
-				
-				/*
-				 * boucler les réponses
-				 * 
-				 * */
-				
-				while(true) {
-					message = in.readLine();
-					
-					System.out.println(message);
-					
-					if(message.equals("fin")) {
-						break;
-					}
-					
-					envoi = entree.nextLine();
-					out.println(envoi);
-					out.flush();
-					/*
-					 * fafana ao amin'ny ArrayList partJoueur ilay pièce avy nariany.
-					 * */
-					partActuelleJoueur(envoi);
-					
-					System.out.println("le reste de ma part : "+Interface.partJoueur);
-					
-				}
-				socket.close();
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -114,6 +100,14 @@ public class ClientPrincipal {
 					Interface.partJoueur.remove(i);
 				}
 			}
+		}
+	}
+	
+	public void poserLesImagesDomino(FenetreDeJeu fen) {
+		for(int i = 0; i < Interface.partJoueur.size(); i++) {
+			//System.out.println(Interface.partJoueur.get(i));
+			Domino domi = new Domino(Interface.partJoueur.get(i));
+			fen.panel_contenant_dominos.add(domi);
 		}
 	}
 }
