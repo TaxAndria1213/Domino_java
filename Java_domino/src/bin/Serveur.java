@@ -12,7 +12,7 @@ import Interface.Interface_global;
 
 
 public class Serveur {
-	public static int port = 9634; //varavarana ho an'ny joueurs
+	public static int port = 9635; //varavarana ho an'ny joueurs
 	private int nbJoueur = 3; //définition statique an'ny nombre de joueur
 	private BufferedReader in = null;
 	private PrintStream out = null;

@@ -57,8 +57,7 @@ public class Domino extends JPanel {
 					String domino_sur_table = "";
 					domino_sur_table = ClientPrincipal.input.readLine();
 					Domino_sur_table domi = new Domino_sur_table(domino_sur_table);
-					FenetreDeJeu.panel_table.add(domi, BorderLayout.CENTER);
-					FenetreDeJeu.panel_table.setBackground(new Color(79, 124, 253));
+					
 					//FenetreDeJeu.panel_table.repaint();
 					
 				} catch (IOException e2) {

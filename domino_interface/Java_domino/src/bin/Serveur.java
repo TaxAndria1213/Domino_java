@@ -60,6 +60,7 @@ public class Serveur {
 			int pointeur = 0;
 			while(pointeur < nbJoueur) {
 				declencherFenetreJeu(Interface_global.liste_outs.get(pointeur));
+				envoyerNombreJoueur(Interface_global.liste_outs.get(pointeur));
 				pointeur++;
 			}
 			
@@ -399,5 +400,10 @@ public class Serveur {
 		else {
 			return continuer;
 		}
+	}
+	
+	public void envoyerNombreJoueur(PrintStream p) {
+		p.println(nbJoueur);
+		p.flush();
 	}
 }
