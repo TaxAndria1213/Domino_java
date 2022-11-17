@@ -18,6 +18,7 @@ import Modele.Domino;
 import Vue.FenetreDeJeu;
 
 public  class ClientPrincipal {
+	public static int nombre_joueur = 0;
 	final static int port = 9635;
 	public static Socket socket;
 	public static BufferedReader input;
@@ -47,8 +48,16 @@ public  class ClientPrincipal {
 			System.out.println("Reception de message...");
 			
 			message = ClientPrincipal.input.readLine();
+			
 			if(message.equals("Démarrer")) {
-				
+				message = ClientPrincipal.input.readLine();
+				try {
+					ClientPrincipal.nombre_joueur = Integer.parseInt(message);
+					System.out.println("le nombre de joueur est : "+ClientPrincipal.nombre_joueur);
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
 				message = ClientPrincipal.input.readLine();
 				creerListeDomino(message);
 				poserLesImagesDomino(fen);
