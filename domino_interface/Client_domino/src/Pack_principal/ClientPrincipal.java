@@ -62,11 +62,6 @@ public  class ClientPrincipal {
 				creerListeDomino(message);
 				poserLesImagesDomino(fen);
 				System.out.println(Interface.partJoueur);
-				
-				message = ClientPrincipal.input.readLine();
-				System.out.println(message);
-				
-				
 			}
 			
 		} catch (Exception e) {

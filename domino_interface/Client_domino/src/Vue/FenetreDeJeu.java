@@ -19,13 +19,13 @@ public class FenetreDeJeu {
 	
 	private JFrame fenetre_principal;
 	public JButton bouton_pret = new JButton("Prêt");
-	public JLabel label_test_etat = new JLabel("affichage des états");
+	public static JLabel label_test_etat = new JLabel("affichage des états");
 	public JPanel panel_principal = new JPanel();
 	public JPanel panel_droite = new JPanel();
 	public JPanel panel_contenant_dominos = new JPanel();
 	public JPanel panel_table_et_etat = new JPanel();
 	public static JPanel panel_table = new JPanel();
-	public JPanel panel_etat = new JPanel();
+	public static JPanel panel_etat = new JPanel();
 	public JButton bouton_tsisy = new JButton("Tsy misy");
 
 
