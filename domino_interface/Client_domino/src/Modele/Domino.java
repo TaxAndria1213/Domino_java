@@ -46,7 +46,7 @@ public class Domino extends JPanel {
 				System.out.println(nom);
 				valeurPresser = nom;
 				Domino.this.setVisible(false);
-				
+				FenetreDeJeu.label_test_etat.setText("attend ton tour");
 				
 				
 				ClientPrincipal.output.println(nom);
@@ -56,6 +56,7 @@ public class Domino extends JPanel {
 				try {
 					String domino_sur_table = "";
 					domino_sur_table = ClientPrincipal.input.readLine();
+					System.out.println("domy eo ambony latabatra : "+domino_sur_table);
 					Domino_sur_table domi = new Domino_sur_table(domino_sur_table);
 					
 					//FenetreDeJeu.panel_table.repaint();
@@ -72,10 +73,6 @@ public class Domino extends JPanel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
-				
-				
 			}
 			
 			@Override

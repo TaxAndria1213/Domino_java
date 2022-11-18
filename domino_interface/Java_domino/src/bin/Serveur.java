@@ -13,7 +13,7 @@ import Interface.Interface_global;
 
 public class Serveur {
 	public static int port = 9635; //varavarana ho an'ny joueurs
-	private int nbJoueur = 1; //définition statique an'ny nombre de joueur
+	private int nbJoueur = 3; //définition statique an'ny nombre de joueur
 	private BufferedReader in = null;
 	private PrintStream out = null;
 	private String tour = "tour";
@@ -92,9 +92,18 @@ public class Serveur {
 				 * mandefa anle message "c'est ton tour" any amin'ny joueur[compteur]
 				 * 
 				 * */
-				out = Interface_global.liste_outs.get(tour_de);
-				out.println("C'est ton "+tour+" tes pieces disponibles : "+Interface_global.part_joueur.get(tour_de));
-				out.flush();
+				for(int compte_joueur = 0; compte_joueur < nbJoueur; compte_joueur++) {
+					if(compte_joueur == tour_de) {
+						out = Interface_global.liste_outs.get(compte_joueur);
+						out.println("C'est ton "+tour);
+						out.flush();
+					}
+					else {
+						out = Interface_global.liste_outs.get(compte_joueur);
+						out.println("attend ton tour");
+						out.flush();
+					}
+				}
 				
 				/*
 				 * eto ndray no mandray ny domy nalefan'ny joueur ilay serveur
