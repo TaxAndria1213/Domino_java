@@ -46,7 +46,7 @@ public class Domino extends JPanel {
 				System.out.println(nom);
 				valeurPresser = nom;
 				Domino.this.setVisible(false);
-				FenetreDeJeu.label_test_etat.setText("attend ton tour");
+				//FenetreDeJeu.label_test_etat.setText("attend ton tour");
 				
 				
 				ClientPrincipal.output.println(nom);
@@ -61,18 +61,21 @@ public class Domino extends JPanel {
 					
 					//FenetreDeJeu.panel_table.repaint();
 					
+					String tour = "";
+					tour = ClientPrincipal.input.readLine();
+					System.out.println("blablabla bla ! "+tour);
+					if(tour.equals("c'est ton tour")) {
+						System.out.println("après attente : "+tour);
+						FenetreDeJeu.label_test_etat.setText(tour);
+						FenetreDeJeu.label_test_etat.repaint();
+					}
+					
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 				
-				try {
-					String mess = ClientPrincipal.input.readLine();
-					System.out.println(mess);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
 			}
 			
 			@Override
@@ -99,5 +102,15 @@ public class Domino extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(domi, 0, 0, null);
+	}
+	
+	public void attendreReponse() {
+		try {
+			ClientPrincipal.reponse = ClientPrincipal.input.readLine();
+			System.out.println(ClientPrincipal.reponse);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

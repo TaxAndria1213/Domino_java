@@ -13,7 +13,7 @@ import Interface.Interface_global;
 
 public class Serveur {
 	public static int port = 9635; //varavarana ho an'ny joueurs
-	private int nbJoueur = 3; //définition statique an'ny nombre de joueur
+	private int nbJoueur = 2; //définition statique an'ny nombre de joueur
 	private BufferedReader in = null;
 	private PrintStream out = null;
 	private String tour = "tour";
@@ -94,7 +94,7 @@ public class Serveur {
 				 * */
 				for(int compte_joueur = 0; compte_joueur < nbJoueur; compte_joueur++) {
 					if(compte_joueur == tour_de) {
-						out = Interface_global.liste_outs.get(compte_joueur);
+						out = Interface_global.liste_outs.get(tour_de);
 						out.println("C'est ton "+tour);
 						out.flush();
 					}

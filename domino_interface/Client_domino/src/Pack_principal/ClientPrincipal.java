@@ -19,6 +19,7 @@ import Vue.FenetreDeJeu;
 
 public  class ClientPrincipal {
 	public static int nombre_joueur = 0;
+	public static String reponse = "";
 	final static int port = 9635;
 	public static Socket socket;
 	public static BufferedReader input;
@@ -33,7 +34,7 @@ public  class ClientPrincipal {
 				InetAddress serveur = null;
 				Socket socket = null;
 				
-				serveur = InetAddress.getByName("127.0.0.1");
+				serveur = InetAddress.getByName("192.168.151.246");
 				socket = new Socket(serveur, port);
 				ClientPrincipal.socket = socket;
 				
@@ -62,6 +63,10 @@ public  class ClientPrincipal {
 				creerListeDomino(message);
 				poserLesImagesDomino(fen);
 				System.out.println(Interface.partJoueur);
+				
+				message = ClientPrincipal.input.readLine();
+				afficherCestTonTour(message);
+				
 			}
 			
 		} catch (Exception e) {
@@ -113,5 +118,10 @@ public  class ClientPrincipal {
 			Domino domi = new Domino(Interface.partJoueur.get(i));
 			fen.panel_contenant_dominos.add(domi);
 		}
+	}
+	
+	public static void afficherCestTonTour(String message) {
+		FenetreDeJeu.label_test_etat.setText(message);
+		FenetreDeJeu.label_test_etat.repaint();
 	}
 }

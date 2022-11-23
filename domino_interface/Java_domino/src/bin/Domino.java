@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.InterfaceAddress;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import Interface.Interface_global;

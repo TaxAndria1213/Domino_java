@@ -9,5 +9,5 @@ public class MainJoueur {
 		new FenetreAccueil();
 		//FenetreDeJeu fenJeu = new FenetreDeJeu();	
 	}
-
+	
 }
