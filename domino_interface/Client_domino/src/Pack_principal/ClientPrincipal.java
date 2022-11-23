@@ -1,16 +1,12 @@
 package Pack_principal;
 
-import java.awt.Image;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import Controleur.AttentReponse;
 import Interface.Interface;
 import Modele.Domino;
@@ -25,7 +21,6 @@ public  class ClientPrincipal {
 	public static PrintStream output;
 	
 	public ClientPrincipal(FenetreDeJeu fen) {
-		String envoi = "";
 		
 		try {
 			
@@ -44,7 +39,6 @@ public  class ClientPrincipal {
 
 			}
 			
-			Scanner entree = new Scanner(System.in);
 			String message = "";
 			System.out.println("Reception de message...");
 			
@@ -67,7 +61,7 @@ public  class ClientPrincipal {
 				message = ClientPrincipal.input.readLine();
 				afficherCestTonTour(message);
 				
-				AttentReponse attend = new AttentReponse(ClientPrincipal.socket);
+				new AttentReponse(ClientPrincipal.socket);
 			}
 			
 		} catch (Exception e) {
@@ -122,7 +116,23 @@ public  class ClientPrincipal {
 	}
 	
 	public static void afficherCestTonTour(String message) {
-		FenetreDeJeu.label_test_etat.setText(message);
-		FenetreDeJeu.label_test_etat.repaint();
+		Color verte = new Color(151, 255, 63);
+		Color orange = new Color(255, 151, 63);
+		if(message.equals("tour")) {
+			FenetreDeJeu.label_test_etat.setText("C'est ton tour");
+			FenetreDeJeu.label_test_etat.repaint();
+			FenetreDeJeu.panel_etat.setBackground(verte);
+			FenetreDeJeu.panel_etat.repaint();
+			
+
+		}
+		else if(message.equals("NonTour")) {
+			FenetreDeJeu.label_test_etat.setText("Attends ton tour");
+			FenetreDeJeu.label_test_etat.repaint();
+			FenetreDeJeu.panel_etat.setBackground(orange);
+			FenetreDeJeu.panel_etat.repaint();
+
+
+		}
 	}
 }
