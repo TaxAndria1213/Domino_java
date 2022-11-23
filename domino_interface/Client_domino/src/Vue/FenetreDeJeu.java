@@ -1,6 +1,7 @@
 package Vue;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -12,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Controleur.AttentReponse;
 import Pack_principal.ClientPrincipal;
 
 
@@ -27,6 +27,7 @@ public class FenetreDeJeu {
 	public JPanel panel_table_et_etat = new JPanel();
 	public static JPanel panel_table = new JPanel();
 	public static JPanel panel_etat = new JPanel();
+	public static JPanel conteneur_domino_table = new JPanel();
 	public JButton bouton_tsisy = new JButton("Tsy misy");
 
 
@@ -38,6 +39,9 @@ public class FenetreDeJeu {
 	private void charger() {
 		int longueur_bouton = 145;
 		int hauteur_bouton = 72;
+		
+		
+		Color bleu_table = new Color(79, 124, 253);
 		
 		fenetre_principal = new JFrame();
 		
@@ -71,8 +75,10 @@ public class FenetreDeJeu {
 		panel_etat.setBackground(new Color(151, 255, 63));
 		panel_etat.add(label_test_etat);
 		
-		panel_table.setLayout(new BorderLayout());
-		panel_table.setBackground(new Color(79, 124, 253));
+		conteneur_domino_table.setLayout(new GridLayout());
+		conteneur_domino_table.setBorder(null);
+		FenetreDeJeu.panel_table.setBackground(bleu_table);
+		panel_table.add(conteneur_domino_table);
 		panel_table_et_etat.add(panel_table, BorderLayout.CENTER);
 		
 		

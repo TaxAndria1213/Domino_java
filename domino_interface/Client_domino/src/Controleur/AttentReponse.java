@@ -1,10 +1,13 @@
 package Controleur;
 
 import java.awt.Color;
-
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.Socket;
+
+import javax.swing.JPanel;
+
 import Interface.Interface;
 import Modele.Domino_sur_table;
 import Pack_principal.ClientPrincipal;
@@ -30,9 +33,12 @@ public class AttentReponse extends Thread {
 	
 	public synchronized void run() {
 		String ip = soquette.getRemoteSocketAddress().toString();
+		int longueur_bouton = 145;
+		int hauteur_bouton = 72;
 		try {
 			Color verte = new Color(151, 255, 63);
 			Color orange = new Color(255, 151, 63);
+			Color bleu_table = new Color(79, 124, 253);
 			System.out.println("Connexion du client numero, IP = "+ip);
 			while(true) {
 				String msg = in.readLine();
@@ -42,24 +48,31 @@ public class AttentReponse extends Thread {
 						FenetreDeJeu.label_test_etat.setText("C'est ton tour");
 						FenetreDeJeu.label_test_etat.repaint();
 						FenetreDeJeu.panel_etat.setBackground(verte);
-						FenetreDeJeu.panel_etat.repaint();;
+						FenetreDeJeu.panel_etat.repaint();
+						
 
 					}
 					else if(msg.equals("NonTour")) {
 						FenetreDeJeu.label_test_etat.setText("Attends ton tour");
 						FenetreDeJeu.label_test_etat.repaint();
 						FenetreDeJeu.panel_etat.setBackground(orange);
-						FenetreDeJeu.panel_etat.repaint();;
+						FenetreDeJeu.panel_etat.repaint();
 
 
 					}
-					else {
+					else if(!msg.equals("tsisy")) {
 						Interface.liste_domi_sur_table.add(msg);
 						System.out.println(Interface.liste_domi_sur_table);
-						for(int i = 0; i < Interface.liste_domi_sur_table.size(); i++) {
-							Domino_sur_table domi_table = new Domino_sur_table(Interface.liste_domi_sur_table.get(i));
-							FenetreDeJeu.panel_table.add(domi_table);
-						}
+						Domino_sur_table domi_table = new Domino_sur_table(msg);
+						JPanel panel_domi = new JPanel();
+						domi_table.setPreferredSize(new Dimension(longueur_bouton, hauteur_bouton));
+						System.out.println("Ito le message "+msg);
+						panel_domi.add(domi_table);
+						panel_domi.setBackground(bleu_table);
+						panel_domi.setBorder(null);
+						FenetreDeJeu.conteneur_domino_table.add(panel_domi);
+						FenetreDeJeu.conteneur_domino_table.setBackground(bleu_table);
+						FenetreDeJeu.panel_table.setBackground(bleu_table);
 						FenetreDeJeu.panel_table.repaint();
 					}
 				}else {
