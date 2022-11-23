@@ -12,11 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controleur.AttentReponse;
 import Pack_principal.ClientPrincipal;
 
 
 public class FenetreDeJeu {
-	
+
 	private JFrame fenetre_principal;
 	public JButton bouton_pret = new JButton("Prêt");
 	public static JLabel label_test_etat = new JLabel("affichage des états");

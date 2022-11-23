@@ -53,27 +53,32 @@ public class Domino extends JPanel {
 				ClientPrincipal.output.flush();
 				
 				
-				try {
-					String domino_sur_table = "";
+				/*
+	try {
+*/
+					/*
+	String domino_sur_table = "";
 					domino_sur_table = ClientPrincipal.input.readLine();
 					System.out.println("domy eo ambony latabatra : "+domino_sur_table);
 					Domino_sur_table domi = new Domino_sur_table(domino_sur_table);
+*/
 					
 					//FenetreDeJeu.panel_table.repaint();
 					
-					String tour = "";
-					tour = ClientPrincipal.input.readLine();
-					System.out.println("blablabla bla ! "+tour);
-					if(tour.equals("c'est ton tour")) {
+					/*
+	String tour = "";
+						tour = ClientPrincipal.input.readLine();
 						System.out.println("après attente : "+tour);
 						FenetreDeJeu.label_test_etat.setText(tour);
 						FenetreDeJeu.label_test_etat.repaint();
-					}
+*/
 					
-				} catch (IOException e2) {
+				/*
+					} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
+*/
 				
 				
 			}
