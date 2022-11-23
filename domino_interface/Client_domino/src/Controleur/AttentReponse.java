@@ -1,29 +1,24 @@
 package Controleur;
 
 import java.awt.Color;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
-
 import Interface.Interface;
+import Modele.Domino_sur_table;
 import Pack_principal.ClientPrincipal;
 import Vue.FenetreDeJeu;
 
 public class AttentReponse extends Thread {
 	private Socket soquette;
 	private BufferedReader in;
-	private PrintStream out;
 	
 	public AttentReponse(Socket soquette){
 		super();
 		this.soquette = soquette;
 		try {
 			in = ClientPrincipal.input;
-			out = ClientPrincipal.output;
 		} catch (Exception e) {
 			try {soquette.close();}
 			catch(IOException ee) {}
@@ -61,6 +56,11 @@ public class AttentReponse extends Thread {
 					else {
 						Interface.liste_domi_sur_table.add(msg);
 						System.out.println(Interface.liste_domi_sur_table);
+						for(int i = 0; i < Interface.liste_domi_sur_table.size(); i++) {
+							Domino_sur_table domi_table = new Domino_sur_table(Interface.liste_domi_sur_table.get(i));
+							FenetreDeJeu.panel_table.add(domi_table);
+						}
+						FenetreDeJeu.panel_table.repaint();
 					}
 				}else {
 					break;

@@ -8,11 +8,9 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import Controleur.AttentReponse;
 import Interface.Interface;
 import Modele.Domino;
