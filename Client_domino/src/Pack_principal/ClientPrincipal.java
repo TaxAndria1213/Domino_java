@@ -12,7 +12,7 @@ import Interface.Interface;
 import Vue.FenetreDeJeu;
 
 public class ClientPrincipal {
-	final static int port = 9634;
+	final static int port = 9635;
 	
 	public ClientPrincipal() {
 		String envoi = "";
@@ -21,7 +21,7 @@ public class ClientPrincipal {
 			InetAddress serveur = null;
 			Socket socket = null;
 			
-			serveur = InetAddress.getByName("192.168.151.175");
+			serveur = InetAddress.getByName("192.168.2.13");
 			socket = new Socket(serveur, port);
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
