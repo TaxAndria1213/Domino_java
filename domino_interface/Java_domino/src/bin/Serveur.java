@@ -95,12 +95,12 @@ public class Serveur {
 				for(int compte_joueur = 0; compte_joueur < nbJoueur; compte_joueur++) {
 					if(compte_joueur == tour_de) {
 						out = Interface_global.liste_outs.get(tour_de);
-						out.println("C'est ton "+tour);
+						out.println("tour");
 						out.flush();
 					}
 					else {
 						out = Interface_global.liste_outs.get(compte_joueur);
-						out.println("attend ton tour");
+						out.println("NonTour");
 						out.flush();
 					}
 				}

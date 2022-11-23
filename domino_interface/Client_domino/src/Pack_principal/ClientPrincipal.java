@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Controleur.AttentReponse;
 import Interface.Interface;
 import Modele.Domino;
 import Vue.FenetreDeJeu;
@@ -37,11 +38,12 @@ public  class ClientPrincipal {
 				serveur = InetAddress.getByName("192.168.151.246");
 				socket = new Socket(serveur, port);
 				ClientPrincipal.socket = socket;
-				
+
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				ClientPrincipal.input = in;
 				PrintStream out = new PrintStream(socket.getOutputStream());
 				ClientPrincipal.output = out;
+
 			}
 			
 			Scanner entree = new Scanner(System.in);
@@ -67,6 +69,7 @@ public  class ClientPrincipal {
 				message = ClientPrincipal.input.readLine();
 				afficherCestTonTour(message);
 				
+				AttentReponse attend = new AttentReponse(ClientPrincipal.socket);
 			}
 			
 		} catch (Exception e) {
