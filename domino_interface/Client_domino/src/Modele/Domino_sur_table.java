@@ -14,13 +14,15 @@ public class Domino_sur_table extends JPanel {
 	
 	public Domino_sur_table(String nom) {
 		
-		try {
+		/*
+	try {
 			chemin = "./image_domino_png/"+nom+".png";
 			domi = ImageIO.read(new File(chemin));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+*/
 	}
 	
 	
