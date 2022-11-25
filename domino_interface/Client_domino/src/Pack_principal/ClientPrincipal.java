@@ -61,7 +61,7 @@ public  class ClientPrincipal {
 				message = ClientPrincipal.input.readLine();
 				afficherCestTonTour(message);
 				
-				new AttentReponse(ClientPrincipal.socket);
+				new AttentReponse(ClientPrincipal.socket, fen);
 			}
 			
 		} catch (Exception e) {

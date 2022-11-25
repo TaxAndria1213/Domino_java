@@ -210,6 +210,10 @@ public class Serveur {
 					res2.clear();
 				}
 				System.out.println("Reste sur table est : "+Res);
+				for(int x = 0; x < nbJoueur; x++) {
+					Interface_global.liste_outs.get(x).println(Res);
+					Interface_global.liste_outs.get(x).flush();
+				}
 
 				/*
 				 * ito no manova ny tour.
@@ -265,6 +269,10 @@ public class Serveur {
 
 				String fin = "fin";
 				Interface_global.liste_outs.get(i).println(fin);
+				Interface_global.liste_outs.get(i).flush();
+				
+				
+				Interface_global.liste_outs.get(i).println(gainFinal);
 				Interface_global.liste_outs.get(i).flush();
 				
 				Interface_global.socket_liste.get(i).close();
