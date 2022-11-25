@@ -12,19 +12,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import Pack_principal.ClientPrincipal;
 
 
 public class FenetreDeJeu {
 
-	private JFrame fenetre_principal;
+	public static JFrame fenetre_principal;
 	public JButton bouton_pret = new JButton("Prêt");
+	public static JLabel lab_domy_libre = new JLabel();
 	public static JLabel label_test_etat = new JLabel("affichage des états");
 	public JPanel panel_principal = new JPanel();
 	public JPanel panel_droite = new JPanel();
 	public JPanel panel_contenant_dominos = new JPanel();
 	public JPanel panel_table_et_etat = new JPanel();
+	public static JPanel conteneur_domi_table = new JPanel();
+	public static JPanel conteneur_etat = new JPanel();
 	public static JPanel panel_table = new JPanel();
 	public static JPanel panel_etat = new JPanel();
 	public static JPanel conteneur_domino_table = new JPanel();
@@ -72,10 +76,14 @@ public class FenetreDeJeu {
 		panel_principal.add(panel_table_et_etat, BorderLayout.CENTER);
 		
 		panel_table_et_etat.add(panel_etat, BorderLayout.SOUTH);
+		panel_etat.setLayout(new BorderLayout());
 		panel_etat.setBackground(new Color(151, 255, 63));
-		panel_etat.add(label_test_etat);
+		conteneur_etat.add(label_test_etat);
+		conteneur_domi_table.add(lab_domy_libre);
+		panel_etat.add(conteneur_etat, BorderLayout.CENTER);
+		panel_etat.add(conteneur_domi_table, BorderLayout.WEST);
 		
-		conteneur_domino_table.setLayout(new GridLayout());
+		//conteneur_domino_table.setLayout(new GridLayout());
 		conteneur_domino_table.setBorder(null);
 		FenetreDeJeu.panel_table.setBackground(bleu_table);
 		panel_table.add(conteneur_domino_table);
