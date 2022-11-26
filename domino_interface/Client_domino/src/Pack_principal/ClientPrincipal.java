@@ -1,5 +1,7 @@
 package Pack_principal;
 
+
+
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -31,9 +33,9 @@ public  class ClientPrincipal {
 				serveur = InetAddress.getByName("192.168.151.246");
 				socket = new Socket(serveur, port);
 				ClientPrincipal.socket = socket;
-
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				ClientPrincipal.input = in;
+				
 				PrintStream out = new PrintStream(socket.getOutputStream());
 				ClientPrincipal.output = out;
 

@@ -92,7 +92,7 @@ public class AttentReponse extends Thread {
 				}
 				else {
 					String message = in.readLine();
-					System.out.println("mifarana amin'ny : "+message);
+					System.out.println("mifarana amin'ny a: "+message);
 					JOptionPane.showMessageDialog(null, message, "FIN", JOptionPane.INFORMATION_MESSAGE);
 					fen.fenetre_principal.dispose();
 					break;
@@ -104,5 +104,6 @@ public class AttentReponse extends Thread {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
 	}
 }
