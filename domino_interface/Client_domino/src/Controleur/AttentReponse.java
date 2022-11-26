@@ -93,7 +93,7 @@ public class AttentReponse extends Thread {
 				else {
 					String message = in.readLine();
 					System.out.println("mifarana amin'ny : "+message);
-					JOptionPane.showMessageDialog(null, "La partie est terminer \n Vous avez gagné : "+message+" point(s)", "FIN", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, message, "FIN", JOptionPane.INFORMATION_MESSAGE);
 					fen.fenetre_principal.dispose();
 					break;
 				}

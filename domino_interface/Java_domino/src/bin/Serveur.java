@@ -272,10 +272,19 @@ public class Serveur {
 				Interface_global.liste_outs.get(i).flush();
 				
 				
-				Interface_global.liste_outs.get(i).println(gainFinal);
-				Interface_global.liste_outs.get(i).flush();
+				if(i == tour_de) {
+					Interface_global.liste_outs.get(i).println("Vous avez gagné, votre point est : "+gainFinal);
+					Interface_global.liste_outs.get(i).flush();
+					
+					Interface_global.socket_liste.get(i).close();
+				}
 				
-				Interface_global.socket_liste.get(i).close();
+				else {
+						Interface_global.liste_outs.get(i).println("Le joueur "+tour_de+" a gagné la partie, son gain est : "+gainFinal);
+						Interface_global.liste_outs.get(i).flush();
+						
+						Interface_global.socket_liste.get(i).close();
+				}
 			}
 			socketServer.close();
 
