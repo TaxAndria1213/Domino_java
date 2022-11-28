@@ -30,7 +30,7 @@ public  class ClientPrincipal {
 				InetAddress serveur = null;
 				Socket socket = null;
 				
-				serveur = InetAddress.getByName("192.168.151.246");
+				serveur = InetAddress.getByName("127.0.0.1");
 				socket = new Socket(serveur, port);
 				ClientPrincipal.socket = socket;
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -122,17 +122,13 @@ public  class ClientPrincipal {
 		Color orange = new Color(255, 151, 63);
 		if(message.equals("tour")) {
 			FenetreDeJeu.label_test_etat.setText("C'est ton tour");
-			FenetreDeJeu.label_test_etat.repaint();
-			FenetreDeJeu.panel_etat.setBackground(verte);
-			FenetreDeJeu.panel_etat.repaint();
+			FenetreDeJeu.conteneur_etat.setBackground(verte);
 			
 
 		}
 		else if(message.equals("NonTour")) {
 			FenetreDeJeu.label_test_etat.setText("Attends ton tour");
-			FenetreDeJeu.label_test_etat.repaint();
-			FenetreDeJeu.panel_etat.setBackground(orange);
-			FenetreDeJeu.panel_etat.repaint();
+			FenetreDeJeu.conteneur_etat.setBackground(orange);
 
 
 		}

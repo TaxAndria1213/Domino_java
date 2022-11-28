@@ -280,7 +280,7 @@ public class Serveur {
 				}
 				
 				else {
-						Interface_global.liste_outs.get(i).println("Le joueur "+tour_de+" a gagné la partie, son gain est : "+gainFinal);
+						Interface_global.liste_outs.get(i).println("Le joueur "+(tour_de+1)+" a gagné la partie, son gain est : "+gainFinal);
 						Interface_global.liste_outs.get(i).flush();
 						
 						Interface_global.socket_liste.get(i).close();

@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import Vue.FenetreDeJeu;
+
 public class Domino_sur_table extends JPanel {
 	public int droite;
 	public int gauche;
@@ -31,7 +33,7 @@ public class Domino_sur_table extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(domi, 0, 0, null);
+		g.drawImage(domi, FenetreDeJeu.panel_table.WIDTH / 2, FenetreDeJeu.panel_table.HEIGHT /2, null);
 	}
 	
 	public void SetDroite() {

@@ -1,6 +1,7 @@
 package Controleur;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,19 +73,21 @@ public class AttentReponse extends Thread {
 						}
 						
 						else if(!msg.equals("tsisy") && msg.length() == 3) {
-							Interface.liste_domi_sur_table.add(msg);
-							System.out.println(Interface.liste_domi_sur_table);
+							//Interface.liste_domi_sur_table.add(msg);
+							//System.out.println(Interface.liste_domi_sur_table);
 							Domino_sur_table domi_table = new Domino_sur_table(msg);
-							JPanel panel_domi = new JPanel();
-							domi_table.setPreferredSize(new Dimension(longueur_bouton, hauteur_bouton));
-							System.out.println("Ito le message "+msg);
-							panel_domi.add(domi_table);
-							panel_domi.setBackground(bleu_table);
-							panel_domi.setBorder(null);
-							FenetreDeJeu.conteneur_domino_table.add(panel_domi);
-							FenetreDeJeu.conteneur_domino_table.setBackground(bleu_table);
-							FenetreDeJeu.panel_table.setBackground(bleu_table);
-							FenetreDeJeu.panel_table.repaint();
+							
+							Interface.domi_sur_table.add(domi_table);
+							//FenetreDeJeu.conteneur_domino_table.removeAll();
+							for(int i = 0; i < Interface.domi_sur_table.size(); i++) {
+								System.out.println("liste domino : "+ Interface.domi_sur_table.get(i).valeurPresser);
+								domi_table.setPreferredSize(new Dimension(longueur_bouton, hauteur_bouton));
+								FenetreDeJeu.conteneur_domino_table.add(Interface.domi_sur_table.get(i));
+								FenetreDeJeu.conteneur_domino_table.setBackground(bleu_table);
+								FenetreDeJeu.panel_table.setBackground(bleu_table);
+								FenetreDeJeu.panel_table.repaint();
+
+							}
 						}
 					}else {
 						break;
