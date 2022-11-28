@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,7 +34,7 @@ public class FenetreDeJeu {
 	public static JPanel panel_table = new JPanel();
 	public static JPanel panel_etat = new JPanel();
 	public static JPanel conteneur_domino_table = new JPanel();
-	public JButton bouton_tsisy = new JButton("Tsy misy");
+	public JButton bouton_tsisy = new JButton("Passer");
 
 
 	
@@ -64,7 +66,8 @@ public class FenetreDeJeu {
 		
 		bouton_tsisy.setPreferredSize(new Dimension(longueur_bouton + 10, hauteur_bouton + 10));
 		bouton_tsisy.setBackground(new Color(255, 50, 50));
-		
+		bouton_tsisy.setForeground(new Color(255, 255, 255));
+		bouton_tsisy.setFont(new Font("Serif", Font.BOLD, 20));
 		
 		panel_contenant_dominos.setLayout(new GridLayout(0,1));
 		//panel_contenant_dominos.add(bouton_pret);
@@ -85,6 +88,7 @@ public class FenetreDeJeu {
 		
 		//conteneur_domino_table.setLayout(new GridLayout());
 		conteneur_domino_table.setBorder(null);
+		conteneur_domino_table.setBackground(bleu_table);
 		FenetreDeJeu.panel_table.setBackground(bleu_table);
 		panel_table.add(conteneur_domino_table);
 		panel_table_et_etat.add(panel_table, BorderLayout.CENTER);
