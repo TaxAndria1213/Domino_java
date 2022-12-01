@@ -1,3 +1,4 @@
+
 package bin;
 
 import java.io.BufferedReader;
@@ -13,15 +14,22 @@ import Interface.Interface_global;
 
 public class Serveur {
 	public static int port = 9635; //varavarana ho an'ny joueurs
-	private int nbJoueur = 2; //définition statique an'ny nombre de joueur
+	private int nbJoueur = 3; //définition statique an'ny nombre de joueur
 	private BufferedReader in = null;
 	private PrintStream out = null;
 	private String tour = "tour";
+	private int tour_a_recup_dans_fct = 0;
 	private int tour_de = 0;
+	private Boolean bool; 
 	public static ArrayList<String> Res = new ArrayList<String>(); //array liste misy ny nombre disponible eny amn table
 
 	private ArrayList<String> res1 = new ArrayList<String>();
 	private ArrayList<String> res2 = new ArrayList<String>();
+	
+	//dome de chaque jouer;
+	private ArrayList<String> dominoJ1 = new ArrayList<String>();
+	private ArrayList<String> dominoJ2 = new ArrayList<String>();
+	private ArrayList<String> dominoJ3 = new ArrayList<String>();
 	
 	
 	public Serveur() {
@@ -75,6 +83,65 @@ public class Serveur {
 				ArrayList<String> part = Interface_global.part_joueur.get(compteur);
 				out.println(part);
 				compteur++;
+			}
+			
+			// code miantso function mtest double mba ijerena zay lo vato
+			checkDouble("6-6");
+			if(bool == true){
+				tour_de = tour_a_recup_dans_fct;
+				System.out.println("test doble 6 " );
+			}
+			else
+			{
+				checkDouble("5-5");
+				if(bool == true){
+					tour_de = tour_a_recup_dans_fct;
+					System.out.println("test doble 5 " );
+				}
+				else
+				{
+					checkDouble("4-4");
+					if(bool == true){
+						tour_de = tour_a_recup_dans_fct;
+						System.out.println("test doble 4 " );
+					}
+					else
+					{
+						checkDouble("3-3");
+						if(bool == true){
+							tour_de = tour_a_recup_dans_fct;
+							System.out.println("test doble 3 " );
+						}
+						else
+						{
+							checkDouble("2-2");
+							if(bool == true){
+								tour_de = tour_a_recup_dans_fct;
+								System.out.println("test doble 2 " );
+							}
+							else
+							{
+								checkDouble("1-1");
+								if(bool == true){
+									tour_de = tour_a_recup_dans_fct;
+									System.out.println("test doble 1 " );
+								}
+								else
+								{
+									checkDouble("0-0");
+									if(bool == true){
+										tour_de = tour_a_recup_dans_fct;
+										System.out.println("test doble 0 " );
+									}
+									else
+									{
+										tour_de = 0;
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			
 			String reponse_joueur = "";
@@ -431,5 +498,57 @@ public class Serveur {
 	public void envoyerNombreJoueur(PrintStream p) {
 		p.println(nbJoueur);
 		p.flush();
+	}
+	
+	public void checkDouble(String double_a_tester)
+	{
+		
+		
+		dominoJ1 = Interface_global.part_joueur.get(0);
+		dominoJ2 = Interface_global.part_joueur.get(1);
+		dominoJ3 = Interface_global.part_joueur.get(2);
+		
+		
+		for(int i = 0 ; i < dominoJ1.size(); i++)
+		{
+			if(dominoJ1.get(i).equals(double_a_tester))
+			{
+				System.out.println("double plus haut existant dans le joueur num 1");
+				tour_a_recup_dans_fct = 0;
+				bool =  true;
+				break;
+			}
+			else
+			{
+				for(int i1 = 0 ; i1 < dominoJ2.size(); i1++)
+				{
+					if(dominoJ2.get(i1).equals(double_a_tester))
+					{
+						System.out.println("double plus haut existant dans le joueur num 2");
+						tour_a_recup_dans_fct = 1;
+						bool =  true;
+						break;
+					}
+					else
+					{
+						for(int i2 = 0 ; i2 < dominoJ3.size(); i2++)
+						{
+							if(dominoJ3.get(i2).equals(double_a_tester))
+							{
+								System.out.println("double plus haut existant dans le joueur num 3");
+								tour_a_recup_dans_fct = 2;
+								bool =  true;
+								break;
+							}
+							else
+							{
+								tour_a_recup_dans_fct = 0;
+								bool =  false;
+							}
+						}
+					}
+				}
+			}
+		}		
 	}
 }
