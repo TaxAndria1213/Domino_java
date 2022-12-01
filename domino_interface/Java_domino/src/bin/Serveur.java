@@ -251,7 +251,7 @@ public class Serveur {
 				if(Res.size() > 1 && !reponse_joueur.equals("tsisy")) {
 					String[] resultat1;
 					String[] resultat2;
-					//System.out.println("Dans res : plus de 2");
+					System.out.println("reponse_joueur" + reponse_joueur);
 					resultat1 = Res.get(0).split("-");
 					resultat2 = Res.get(1).split("-");
 					
@@ -384,7 +384,9 @@ public class Serveur {
 	public void ajouterDansRes(String reponse) {
 	if(!reponse.equals("tsisy"))
 		Res.add(reponse);
+		System.out.println("ito lay rest oh" + Res);
 	}
+	
 	
 	
 	/*
@@ -475,6 +477,8 @@ public class Serveur {
 	 * */
 	
 	public void ajouterDominoSurTable(String reponse) {
+		System.out.println("Domino reste au table lesy ty eh : "+ Res);
+		System.out.println("De ty nge lesy lay reponse eh : "+ reponse);
 		Interface_global.domino_sur_table.add(reponse);
 		System.out.println("Domino sur table : "+Interface_global.domino_sur_table);
 	}

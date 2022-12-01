@@ -30,7 +30,7 @@ public  class ClientPrincipal {
 				InetAddress serveur = null;
 				Socket socket = null;
 				
-				serveur = InetAddress.getByName("192.168.2.39");
+				serveur = InetAddress.getByName("192.168.2.91");
 				socket = new Socket(serveur, port);
 				ClientPrincipal.socket = socket;
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
