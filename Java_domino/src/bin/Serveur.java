@@ -153,7 +153,7 @@ public class Serveur {
 				 * 
 				 * */
 				out = Interface_global.liste_outs.get(tour_de);
-				out.println("C'est ton "+tour+" tes pieces disponibles : "+Interface_global.part_joueur.get(tour_de));
+				out.println("C'est ton " + tour + " tes pieces disponibles : "+Interface_global.part_joueur.get(tour_de));
 				out.flush();
 				
 				/*
@@ -214,7 +214,7 @@ public class Serveur {
 				if(Res.size() > 1 && !reponse_joueur.equals("tsisy")) {
 					String[] resultat1;
 					String[] resultat2;
-					//System.out.println("Dans res : plus de 2");
+					
 					resultat1 = Res.get(0).split("-");
 					resultat2 = Res.get(1).split("-");
 					
@@ -239,12 +239,13 @@ public class Serveur {
 					res1.clear();
 					res2.clear();
 				}
-				System.out.println("Reste sur table est : "+Res);
+				System.out.println("Reste sur table est : " +Res);
 
 				/*
 				 * ito no manova ny tour.
 				 * */
-				tour_de++;
+				tour_de
+				++;
 				
 				/*
 				 * rah ohatra ka tonga amin'ny tour'ny fahatelo de miverina zero ny tour.
