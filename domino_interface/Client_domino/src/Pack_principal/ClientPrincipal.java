@@ -23,7 +23,9 @@ public  class ClientPrincipal {
 	public static PrintStream output;
 	
 	public ClientPrincipal(FenetreDeJeu fen) {
+		
 		try {
+			
 			if(Interface.partJoueur.size() == 0) {
 				InetAddress serveur = null;
 				Socket socket = null;
