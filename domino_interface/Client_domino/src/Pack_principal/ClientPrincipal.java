@@ -28,7 +28,7 @@ public  class ClientPrincipal {
 				InetAddress serveur = null;
 				Socket socket = null;
 				
-				serveur = InetAddress.getByName("192.168.151.246");
+				serveur = InetAddress.getByName("127.0.0.1");
 				socket = new Socket(serveur, port);
 				ClientPrincipal.socket = socket;
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
