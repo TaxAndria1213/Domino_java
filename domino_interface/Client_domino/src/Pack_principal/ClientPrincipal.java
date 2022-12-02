@@ -23,14 +23,12 @@ public  class ClientPrincipal {
 	public static PrintStream output;
 	
 	public ClientPrincipal(FenetreDeJeu fen) {
-		
 		try {
-			
 			if(Interface.partJoueur.size() == 0) {
 				InetAddress serveur = null;
 				Socket socket = null;
 				
-				serveur = InetAddress.getByName("127.0.0.1");
+				serveur = InetAddress.getByName("192.168.151.246");
 				socket = new Socket(serveur, port);
 				ClientPrincipal.socket = socket;
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
